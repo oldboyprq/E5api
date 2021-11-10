@@ -60,11 +60,22 @@ def main():
         if req.get(r'https://graph.microsoft.com/v1.0/me/people',headers=headers).status_code == 200:
             print("9、与我合作的人员调用成功")
          # 发送邮件
-        mailmessage={'message': {'subject': 'e5api_github',
-                             'body': {'contentType': 'Text', 'content': 'this is a test message'},
-                             'toRecipients': [{'emailAddress': {'address': 'oldboy_prq@163.com'}}],
-                             },
-                 'saveToSentItems': 'true'}            
+        mailmessage={
+                    "message": {
+                        "subject": "E5api_GITHUB",
+                        "body": {
+                            "contentType": "Text",
+                            "content": "This is a text message."
+                        },
+                        "toRecipients": [
+                            {
+                                "emailAddress": {
+                                    "address": "e5api@rosepig.onmicrosoft.com"
+                                }
+                            }
+                        ]
+                    }
+                }         
         if req.post(r'https://graph.microsoft.com/v1.0/me/sendMail',headers=headers,data=json.dumps(mailmessage)) == 200:
             print("10、测试邮件发送成功")
         else:
