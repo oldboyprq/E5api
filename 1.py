@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import requests as req
 import json,sys,time
-#先注册azure应用,确保应用有以下权限:
+#先注册azure应用,确保应用有以下权限:[应用程序委托]
 #files:	Files.Read.All、Files.ReadWrite.All、Sites.Read.All、Sites.ReadWrite.All
 #user:	User.Read.All、User.ReadWrite.All、Directory.Read.All、Directory.ReadWrite.All
 #mail:  Mail.Read、Mail.ReadWrite、MailboxSettings.Read、MailboxSettings.ReadWrite
@@ -63,5 +63,6 @@ def main():
     except:
         print("pass")
         pass
-for _ in range(5):
+for i in range(5):
+    print("第%d轮调用",i)
     main()
