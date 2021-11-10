@@ -8,7 +8,7 @@ on:
     branches: 
       - master
   schedule:
-    - cron: '15 * * * *'
+    - cron: '0 0/1 * * *'
   watch:
     types: [started]
    
@@ -48,7 +48,7 @@ jobs:
     - name: Commit #上传新的refresh_token到仓库
       run: |
         git config --global user.email oldboy_prq@163.com
-        git config --global user.name 翠花
+        git config --global user.name rosepig
         git add .
         git commit -m "update new refresh_token" -a
     - name: Push changes
