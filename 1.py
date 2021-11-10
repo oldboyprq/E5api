@@ -62,7 +62,7 @@ def main():
          # 发送邮件
         mailmessage={'message': {'subject': 'e5api_github',
                              'body': {'contentType': 'Text', 'content': 'this is a test message'},
-                             'toRecipients': [{'emailAddress': {'address': 'e5api@rosepig.onmicrosoft.com}}],
+                             'toRecipients': [{'emailAddress': {'address': 'e5api@rosepig.onmicrosoft.com'}}],
                              },
                  'saveToSentItems': 'true'}            
         if req.post(r'https://graph.microsoft.com/v1.0/me/sendMail',headers=headers,data=json.dumps(mailmessage)) == 200:
