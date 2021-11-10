@@ -63,6 +63,6 @@ def main():
     except:
         print("pass")
         pass
-for i in range(5):
-    print("第%d轮调用"%i+1)
+for i in range(1,6):
+    print("第%d轮调用"%i)
     main()
