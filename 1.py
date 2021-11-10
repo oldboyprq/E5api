@@ -41,14 +41,27 @@ def main():
     'Content-Type':'application/json'
     }
     try:
-        r = req.get(r'https://graph.microsoft.com/v1.0/me/drive/sharedWithMe',headers=headers)
-        if r.status_code == 200:
+        if req.get(r'https://graph.microsoft.com/v1.0/me/drive/sharedWithMe',headers=headers).status_code == 200:
             print("与我共享的文件调用成功")
-        else:
-           print(r.status_code)
+        if req.get(r'https://graph.microsoft.com/v1.0/me/',headers=headers).status_code == 200:
+            print("我的个人资料调用成功")
+        if req.get(r'https://graph.microsoft.com/v1.0/me/messages',headers=headers).status_code == 200:
+            print("我的邮件调用成功")
+        if req.get(r'https://graph.microsoft.com/v1.0/me/insights/trending',headers=headers).status_code == 200:
+            print("我的常用项目调用成功")
+        if req.get(r'https://graph.microsoft.com/v1.0/me/calendars',headers=headers).status_code == 200:
+            print("我的日历调用成功")
+        if req.get(r'https://graph.microsoft.com/v1.0/me/messages?$search="hello world"',headers=headers).status_code == 200:
+            print("我的包含helloworld的邮件调用成功")
+        if req.get(r'https://graph.microsoft.com/beta/me/outlook/masterCategories',headers=headers).status_code == 200:
+            print("我的outlook类别调用成功")
+        if req.get(r'https://graph.microsoft.com/v1.0/me/drive/recent',headers=headers).status_code == 200:
+            print("我最近使用的文件调用成功")
+        if req.get(r'https://graph.microsoft.com/v1.0/me/people',headers=headers).status_code == 200:
+            print("与我合作的人员调用成功")
         print('此次运行结束时间为 :', localtime)
     except:
         print("pass")
         pass
-for _ in range(3):
+for _ in range(2):
     main()
