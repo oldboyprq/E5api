@@ -34,7 +34,7 @@ def main():
     fo = open(path, "r+")
     refresh_token = fo.read()
     fo.close()
-    localtime = time.asctime( time.localtime(time.time()) )
+    x=time.localtime(time.time())
     access_token=gettoken(refresh_token)
     headers={
     'Authorization':access_token,
@@ -59,7 +59,7 @@ def main():
             print("8、我最近使用的文件调用成功")
         if req.get(r'https://graph.microsoft.com/v1.0/me/people',headers=headers).status_code == 200:
             print("9、与我合作的人员调用成功")
-        print('此次运行结束时间为 :', localtime)
+        print("此次运行时间为{}-{}-{} {}:{}:{}".format(x[0],x[1],x[2],x[3]+8,x[4],x[5]))
     except:
         print("pass")
         pass
