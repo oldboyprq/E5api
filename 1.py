@@ -53,7 +53,7 @@ def main():
             print("我的日历调用成功")
         if req.get(r'https://graph.microsoft.com/v1.0/me/messages?$search="hello world"',headers=headers).status_code == 200:
             print("我的包含helloworld的邮件调用成功")
-        if req.get(r'https://graph.microsoft.com/beta/me/outlook/masterCategories',headers=headers).status_code == 200:
+        if req.get(r'https://graph.microsoft.com/v1.0/me/outlook/masterCategories',headers=headers).status_code == 200:
             print("我的outlook类别调用成功")
         if req.get(r'https://graph.microsoft.com/v1.0/me/drive/recent',headers=headers).status_code == 200:
             print("我最近使用的文件调用成功")
