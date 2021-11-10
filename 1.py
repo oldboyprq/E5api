@@ -76,7 +76,7 @@ def main():
                         ]
                     }
                 }         
-        if req.post(r'https://graph.microsoft.com/v1.0/me/sendMail',headers=headers,data=json.dumps(mailmessage)) == 200:
+        if req.post(r'https://graph.microsoft.com/v1.0/me/sendMail',headers=headers,data=json.dumps(mailmessage)) == 202:
             print("10、测试邮件发送成功")
         else:
             print("测试邮件发送失败")
