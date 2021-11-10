@@ -64,5 +64,5 @@ def main():
         print("pass")
         pass
 for i in range(5):
-    print("第%d轮调用",i)
+    print("第%d轮调用"%i)
     main()
