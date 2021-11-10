@@ -59,10 +59,19 @@ def main():
             print("8、我最近使用的文件调用成功")
         if req.get(r'https://graph.microsoft.com/v1.0/me/people',headers=headers).status_code == 200:
             print("9、与我合作的人员调用成功")
+         # 发送邮件
+        mailmessage={'message': {'subject': 'e5api_github',
+                             'body': {'contentType': 'Text', 'content': 'this is a test message'},
+                             'toRecipients': [{'emailAddress': {'address': 'e5api@rosepig.onmicrosoft.com}}],
+                             },
+                 'saveToSentItems': 'true'}            
+        if req.post(r'https://graph.microsoft.com/v1.0/me/sendMail',headers=headers,data=json.dumps(mailmessage)) == 200:
+            print("10、测试邮件发送成功")
+        else:
+            print("测试邮件发送失败")
         print("此次运行时间为{}-{}-{} {}:{}:{}".format(x[0],x[1],x[2],x[3]+8,x[4],x[5]))
     except:
         print("pass")
-        pass
-for i in range(1,6):
+for i in range(1,4):
     print("第%d轮调用"%i)
     main()
