@@ -1,6 +1,5 @@
 # -*- coding: UTF-8 -*-
 import requests as req
-import xlsxwriter
 import json,sys,time
 #先注册azure应用,确保应用有以下权限:[应用程序委托]
 #files:	Files.Read.All、Files.ReadWrite.All、Sites.Read.All、Sites.ReadWrite.All
