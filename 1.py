@@ -42,47 +42,76 @@ def main():
     }
     try:
         print("reading....")
-        if req.get(r'https://graph.microsoft.com/v1.0/me/drive/sharedWithMe',headers=headers).status_code == 200:
+        r = req.get(r'https://graph.microsoft.com/v1.0/me/drive/sharedWithMe', headers=headers)
+        if r.status_code == 200:
             print("1、与我共享的文件调用成功")
-        if req.get(r'https://graph.microsoft.com/v1.0/me/',headers=headers).status_code == 200:
+            value = json.loads(r.text)
+            print("   共有%d封"%len(value['value']))
+        r = req.get(r'https://graph.microsoft.com/v1.0/me/', headers=headers)
+        if r.status_code == 200:
             print("2、我的个人资料调用成功")
-        if req.get(r'https://graph.microsoft.com/v1.0/me/messages',headers=headers).status_code == 200:
+        r = req.get(r'https://graph.microsoft.com/v1.0/me/messages', headers=headers)
+        if r.status_code == 200:
             print("3、我的邮件调用成功")
-        if req.get(r'https://graph.microsoft.com/v1.0/me/insights/trending',headers=headers).status_code == 200:
+            value = json.loads(r.text)
+            print("   共有%d封" % len(value['value']))
+        r = req.get(r'https://graph.microsoft.com/v1.0/me/insights/trending', headers=headers)
+        if r.status_code == 200:
             print("4、我的常用项目调用成功")
-        if req.get(r'https://graph.microsoft.com/v1.0/me/calendars',headers=headers).status_code == 200:
+        r = req.get(r'https://graph.microsoft.com/v1.0/me/calendars', headers=headers)
+        if r.status_code == 200:
             print("5、我的日历调用成功")
-        if req.get(r'https://graph.microsoft.com/v1.0/me/messages?$search="hello world"',headers=headers).status_code == 200:
+        r = req.get(r'https://graph.microsoft.com/v1.0/me/messages?$search="hello world"',
+                    headers=headers)
+        if r.status_code == 200:
             print("6、我的包含helloworld的邮件调用成功")
-        if req.get(r'https://graph.microsoft.com/v1.0/me/outlook/masterCategories',headers=headers).status_code == 200:
+            value = json.loads(r.text)
+            print("   共有%d封" % len(value['value']))
+        r = req.get(r'https://graph.microsoft.com/v1.0/me/outlook/masterCategories', headers=headers)
+        if r.status_code == 200:
             print("7、我的outlook类别调用成功")
-        if req.get(r'https://graph.microsoft.com/v1.0/me/drive/recent',headers=headers).status_code == 200:
+        r = req.get(r'https://graph.microsoft.com/v1.0/me/drive/recent', headers=headers)
+        if r.status_code == 200:
             print("8、我最近使用的文件调用成功")
-        if req.get(r'https://graph.microsoft.com/v1.0/me/people',headers=headers).status_code == 200:
+            value = json.loads(r.text)
+            print("   共有%d个" % len(value['value']))
+        r = req.get(r'https://graph.microsoft.com/v1.0/me/people', headers=headers)
+        if r.status_code == 200:
             print("9、与我合作的人员调用成功")
+            value = json.loads(r.text)
+            print("   共有%d人" % len(value['value']))
         print("writing....")
-         # 发送邮件
-        mailmessage={
-                    "message": {
-                        "subject": "E5api_GITHUB",
-                        "body": {
-                            "contentType": "Text",
-                            "content": "This is a text message."
-                        },
-                        "toRecipients": [
-                            {
-                                "emailAddress": {
-                                    "address": "rose@rosepig.onmicrosoft.com"
-                                }
-                            }
-                        ]
+        # 发送邮件
+        mailmessage = {
+            "message": {
+                "subject": "E5api_GITHUB",
+                "body": {
+                    "contentType": "Text",
+                    "content": "This is a text message."
+                },
+                "toRecipients": [
+                    {
+                        "emailAddress": {
+                            "address": "pig@rosepig.onmicrosoft.com"
+                        }
                     }
-                }         
-        if req.post(r'https://graph.microsoft.com/v1.0/me/sendMail',headers=headers,data=json.dumps(mailmessage)).status_code == 202:
-            print("1、测试邮件发送成功")
-        print("此次运行时间为{}-{}-{} {}:{}:{}".format(x[0],x[1],x[2],x[3]+8,x[4],x[5]))
-    except:
-        print("pass")
-for i in range(1,4):
-    print("第%d轮调用"%i)
+                ]
+            }
+        }
+        if num < 1:  # 只发一次邮件
+            r = req.post(r'https://graph.microsoft.com/v1.0/me/sendMail', headers=headers, data=json.dumps(mailmessage))
+            if r.status_code == 202:
+                print("1、测试邮件发送成功")
+                num += 1
+        else:
+            print("本次任务邮件已发送，本轮循环不发送邮件")
+        print("此轮运行时间为{}-{}-{} {}:{}:{}".format(x[0], x[1], x[2], x[3] + 8, x[4], x[5]))
+    except Exception as e:
+        print("something error")
+        print(e)
+
+
+num = 0
+for i in range(1, 4):
+    print("第%d轮调用" % i)
     main()
