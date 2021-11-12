@@ -51,7 +51,7 @@ def main():
         r = req.get(r'https://graph.microsoft.com/v1.0/me/', headers=headers)
         if r.status_code == 200:
             print("2、我的个人资料调用成功")
-        r = req.get(r'https://graph.microsoft.com/v1.0/me/messages', headers=headers)
+        r = req.get(r'https://graph.microsoft.com/v1.0/me/messages?top=1000', headers=headers)
         if r.status_code == 200:
             print("3、我的邮件调用成功")
             value = json.loads(r.text)
