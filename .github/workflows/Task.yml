@@ -2,13 +2,14 @@
 name: Auto Api Task
 
 on: 
+  workflow_dispatch:
   release:
     types: [published]
   push:
     branches: 
       - master
   schedule:
-    - cron: '20 * * * *'
+    - cron: '0 0 1/5 * *'
   watch:
     types: [started]
    
