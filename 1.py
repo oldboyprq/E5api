@@ -113,6 +113,7 @@ def main():
 
 
 num = 0
-for i in range(1, 4):
-    print("第%d轮调用" % i)
-    main()
+# for i in range(1, 4):
+#     print("第%d轮调用" % i)
+#     main()
+main
