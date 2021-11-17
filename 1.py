@@ -82,30 +82,47 @@ def main():
             value = json.loads(r.text)
             print("   共有%d人" % len(value['value']))
         print("writing....")
-        # 发送邮件
-        mailmessage = {
-            "message": {
-                "subject": "E5api_GITHUB",
-                "body": {
-                    "contentType": "Text",
-                    "content": "This is a text message."
-                },
-                "toRecipients": [
-                    {
-                        "emailAddress": {
-                            "address": "pig@rosepig.onmicrosoft.com"
-                        }
-                    }
-                ]
-            }
+         # 创建文件夹
+        data = {
+            "name": "New Folder",
+            "folder": {},
         }
-        if num < 1:  # 只发一次邮件
-            r = req.post(r'https://graph.microsoft.com/v1.0/me/sendMail', headers=headers, data=json.dumps(mailmessage))
-            if r.status_code == 202:
-                print("1、测试邮件发送成功")
-                num += 1
-        else:
-            print("本次任务邮件已发送，本轮循环不发送邮件")
+        r = req.post(r"https://graph.microsoft.com/v1.0/me/drive/root/children", data=json.dumps(data), headers=headers)
+        if r.status_code < 300:
+            print("1、新建文件夹成功")
+        files_id = json.loads(r.text)['id']
+        # 删除文件夹
+        r = req.delete(r"https://graph.microsoft.com/v1.0/me/drive/items/%s" % files_id, headers=headers)
+        if r.status_code < 300:
+            print("2、删除文件夹成功")
+        # 更新txt
+        r = req.put(r"https://graph.microsoft.com/v1.0/me/drive/root:/api/api.txt:/content", headers=headers, data="api files")
+        if r.status_code < 300:
+            print("3、txt内容更新成功")       
+#         发送邮件
+#         mailmessage = {
+#             "message": {
+#                 "subject": "E5api_GITHUB",
+#                 "body": {
+#                     "contentType": "Text",
+#                     "content": "This is a text message."
+#                 },
+#                 "toRecipients": [
+#                     {
+#                         "emailAddress": {
+#                             "address": "xx.onmicrosoft.com"
+#                         }
+#                     }
+#                 ]
+#             }
+#         }
+#         if num < 1:  # 只发一次邮件
+#             r = req.post(r'https://graph.microsoft.com/v1.0/me/sendMail', headers=headers, data=json.dumps(mailmessage))
+#             if r.status_code == 202:
+#                 print("1、测试邮件发送成功")
+#                 num += 1
+#         else:
+#             print("本次任务邮件已发送，本轮循环不发送邮件")
         print("此轮运行时间为{}-{}-{} {}:{}:{}".format(x[0], x[1], x[2], x[3] + 8, x[4], x[5]))
     except Exception as e:
         print("something error")
