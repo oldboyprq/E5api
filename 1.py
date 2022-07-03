@@ -99,30 +99,30 @@ def main():
         r = req.put(r"https://graph.microsoft.com/v1.0/me/drive/root:/api/api.txt:/content", headers=headers, data="api files")
         if r.status_code < 300:
             print("3、txt内容更新成功")       
-#         发送邮件
-#         mailmessage = {
-#             "message": {
-#                 "subject": "E5api_GITHUB",
-#                 "body": {
-#                     "contentType": "Text",
-#                     "content": "This is a text message."
-#                 },
-#                 "toRecipients": [
-#                     {
-#                         "emailAddress": {
-#                             "address": "xx.onmicrosoft.com"
-#                         }
-#                     }
-#                 ]
-#             }
-#         }
-#         if num < 1:  # 只发一次邮件
-#             r = req.post(r'https://graph.microsoft.com/v1.0/me/sendMail', headers=headers, data=json.dumps(mailmessage))
-#             if r.status_code == 202:
-#                 print("1、测试邮件发送成功")
-#                 num += 1
-#         else:
-#             print("本次任务邮件已发送，本轮循环不发送邮件")
+        #发送邮件
+        mailmessage = {
+                        "message": {
+                            "subject": "Meet for lunch?",
+                            "body": {
+                                "contentType": "Text",
+                                "content": "The new cafeteria is open."
+                            },
+                            "toRecipients": [
+                                {
+                                    "emailAddress": {
+                                        "address": "rose@rosepig.onmicrosoft.com"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+        if num < 1:  # 只发一次邮件
+            r = req.post(r'https://graph.microsoft.com/v1.0/me/sendMail', headers=headers, data=json.dumps(mailmessage))
+            if r.status_code == 202:
+                print("1、测试邮件发送成功")
+                num += 1
+        else:
+            print("本次任务邮件已发送，本轮循环不发送邮件")
         print("此轮运行时间为{}-{}-{} {}:{}:{}".format(x[0], x[1], x[2], x[3] + 8, x[4], x[5]))
     except Exception as e:
         print("something error")
