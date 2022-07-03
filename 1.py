@@ -134,7 +134,7 @@ def main():
         if r.status_code == 200:
             mails = json.loads(r.text)['value']
             if len(mails) < 5:
-                print("2、邮箱共有{}封邮件，本次不删除").format(len(mails))
+                print("2、邮箱共有%d封邮件，本次不删除"%len(mails))
             else:
                 for mail in mails:
                     id = mail['id']
