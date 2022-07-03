@@ -97,7 +97,8 @@ def main():
         # 更新txt
         r = req.put(r"https://graph.microsoft.com/v1.0/me/drive/root:/api/api.txt:/content", headers=headers, data="api files")
         if r.status_code < 300:
-            print("3、txt内容更新成功")       
+            print("3、txt内容更新成功") 
+        print("mail part....")
         #发送邮件
         mailmessage = {
                         "message": {
