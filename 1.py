@@ -129,10 +129,20 @@ def main():
         r = req.post(r'https://graph.microsoft.com/v1.0/me/sendMail', headers=headers, data=json.dumps(mailmessage))
         if r.status_code == 202:
             print("1、测试邮件发送成功")
+        # 邮件数多于5就删除所有的邮件
+        r = req.get(r"https://graph.microsoft.com/v1.0/me/messages/",headers=headers)
+        if r.status_code == 200:
+            mails = json.loads(r.text)['values']
+            if len(mails) < 5:
+                print("2、邮箱共有{}封邮件，本次不删除").format(len(mails))
+            else:
+                for mail in mails:
+                    id = mail['id']
+                    r = req.delete(r"https://graph.microsoft.com/v1.0/me/messages/"+id,headers=headers)
+                print("2、邮箱邮件已经全部删除")   
         print("此轮运行时间为{}-{}-{} {}:{}:{}".format(x[0], x[1], x[2], x[3] + 8, x[4], x[5]))
     except Exception as e:
         print("something error")
         print(e)
-
 
 main()
