@@ -110,7 +110,7 @@ def main():
                             "toRecipients": [
                                 {
                                     "emailAddress": {
-                                        "address": "rose@rosepig.onmicrosoft.com"
+                                        "address": "pig@rosepig.onmicrosoft.com"
                                     }
                                 }
                             ]
