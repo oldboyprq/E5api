@@ -31,7 +31,6 @@ def gettoken(refresh_token):
         f.write(refresh_token)
     return access_token
 def main():
-    global num
     fo = open(path, "r+")
     refresh_token = fo.read()
     fo.close()
@@ -102,12 +101,22 @@ def main():
         #发送邮件
         mailmessage = {
                         "message": {
-                            "subject": "Meet for lunch?",
+                            "subject": "Meet for lunch? hello world",
                             "body": {
                                 "contentType": "Text",
-                                "content": "The new cafeteria is open."
+                                "content": "The new cafeteria is open.hello world."
                             },
                             "toRecipients": [
+                                {
+                                    "emailAddress": {
+                                        "address": "lx@rosepig.onmicrosoft.com"
+                                    }
+                                },
+                                {
+                                    "emailAddress": {
+                                        "address": "lzj@rosepig.onmicrosoft.com"
+                                    }
+                                },
                                 {
                                     "emailAddress": {
                                         "address": "pig@rosepig.onmicrosoft.com"
@@ -116,21 +125,14 @@ def main():
                             ]
                         }
                     }
-        if num < 1:  # 只发一次邮件
-            r = req.post(r'https://graph.microsoft.com/v1.0/me/sendMail', headers=headers, data=json.dumps(mailmessage))
-            if r.status_code == 202:
-                print("1、测试邮件发送成功")
-                num += 1
-        else:
-            print("本次任务邮件已发送，本轮循环不发送邮件")
+        # 只发一次邮件
+        r = req.post(r'https://graph.microsoft.com/v1.0/me/sendMail', headers=headers, data=json.dumps(mailmessage))
+        if r.status_code == 202:
+            print("1、测试邮件发送成功")
         print("此轮运行时间为{}-{}-{} {}:{}:{}".format(x[0], x[1], x[2], x[3] + 8, x[4], x[5]))
     except Exception as e:
         print("something error")
         print(e)
 
 
-num = 0
-# for i in range(1, 4):
-#     print("第%d轮调用" % i)
-#     main()
 main()
