@@ -132,7 +132,7 @@ def main():
         # 邮件数多于5就删除所有的邮件
         r = req.get(r"https://graph.microsoft.com/v1.0/me/messages/",headers=headers)
         if r.status_code == 200:
-            mails = json.loads(r.text)['values']
+            mails = json.loads(r.text)['value']
             if len(mails) < 5:
                 print("2、邮箱共有{}封邮件，本次不删除").format(len(mails))
             else:
