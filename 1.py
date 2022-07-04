@@ -141,7 +141,7 @@ def main():
                     id = mail['id']
                     r = req.delete(r"https://graph.microsoft.com/v1.0/me/messages/"+id,headers=headers)
                 print("2、邮箱邮件已经全部删除")   
-        print("此轮运行时间为{}-{}-{} {}:{}:{}".format(x[0], x[1], x[2], x[3] + 8, x[4], x[5]))
+        print("此轮运行时间为{}-{}-{} {}:{}:{}".format(x[0], x[1], x[2], x[3], x[4], x[5]))
     except Exception as e:
         print("something error")
         print(e)
